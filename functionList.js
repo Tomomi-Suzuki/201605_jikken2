@@ -1,8 +1,8 @@
 function iniFunc() {
     if (filePlaying == 0) {
-        loadSound1(0);
-        loadSound1(1);
-    } if (filePlaying == trialNum[0]) {
+    //    loadSound1(0);
+    //    loadSound1(1);
+    //} if (filePlaying == trialNum[0]) {
         loadSound2(0);
         loadSound2(1);
     }
@@ -99,8 +99,8 @@ function saveAns2Array2() {
     }
     debugShowLog(nameOpt);
     var idOpt = document.getElementById(nameOpt);
-    selectAns[filePlaying][0] = idOpt.options[idOpt.selectedIndex].value;
-    debugShowLog(selectAns[filePlaying]);
+    selectAns[filePlaying - trialNum[0]][0] = idOpt.options[idOpt.selectedIndex].value;
+    debugShowLog(selectAns[filePlaying - trialNum[0]]);
 }   // END saveAnsFunc
 
 // 各ファイルが終わったら回答漏れがないか確認，なければ次の音データを読み込み
@@ -115,7 +115,7 @@ function saveArrayVal1(n_type, n_playing) {
     debugShowLog(audioPlaying);
     var AnsFill = 0;
     for (var n = 0; n < quesNum[n_type]; ++n) {
-        if (selectAns[n_playing][n] != null) {
+        if (selectAns[n_playing- trialNum[0]][n] != null) {
             AnsFill = AnsFill + 1;
         }
     }
@@ -146,7 +146,7 @@ function saveArrayVal2(n_type, n_playing) {
 
     var AnsFill = 0;
     for (var n = 0; n < quesNum[n_type]; ++n) {
-        if (selectAns[n_playing][n] != null) {
+        if (selectAns[n_playing - trialNum[0]][n] != null) {
             AnsFill = AnsFill + 1;
         }
     }
@@ -189,6 +189,6 @@ function showValue(n_audio) {
     playNum[n_audio] = idSld.value;
     ChangeVolume(n_audio);
 
-    selectAns[filePlaying][n_audio + 1] = point[n_audio][filePlaying - trialNum[0]][playNum[n_audio]];
-    debugShowLog(selectAns[filePlaying]);
+    selectAns[filePlaying - trialNum[0]][n_audio + 1] = point[n_audio][filePlaying - trialNum[0]][playNum[n_audio]];
+    debugShowLog(selectAns[filePlaying - trialNum[0]]);
 }
