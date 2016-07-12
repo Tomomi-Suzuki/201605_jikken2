@@ -62,9 +62,10 @@ function loadSound1(n_audio) {
     audioArray1[n_audio].load();
 }
 function loadSound2(n_audio) {
-    n_file = filePlaying - trialNum[0];
+    n_file = filePlaying;
     readFile = audioFile2[n_audio][n_file];
     for (var n = 0; n < ptnNum; ++n) {
+        console.log(n_file);
         var audioname = readFile + point[n_audio][n_file][n] + ".wav";
         audioArray2[n_audio][n] = new Audio(audioname);
         audioArray2[n_audio][n].load();
@@ -88,7 +89,7 @@ function saveAns2Array1() {
 }   // END saveAnsFunc
 function saveAns2Array2() {
     var fileNum = filePlaying + 1;
-    var fileAns = filePlaying + 1;
+    var fileAns = filePlaying + trialNum[0] + 1;
     // Save efficiency value
     if (fileAns < 10) {
         var nameOpt = "selectEf00" + fileAns;
@@ -99,8 +100,8 @@ function saveAns2Array2() {
     }
     debugShowLog(nameOpt);
     var idOpt = document.getElementById(nameOpt);
-    selectAns[filePlaying - trialNum[0]][0] = idOpt.options[idOpt.selectedIndex].value;
-    debugShowLog(selectAns[filePlaying - trialNum[0]]);
+    selectAns[filePlaying][0] = idOpt.options[idOpt.selectedIndex].value;
+    debugShowLog(selectAns[filePlaying]);
 }   // END saveAnsFunc
 
 // 各ファイルが終わったら回答漏れがないか確認，なければ次の音データを読み込み
@@ -152,7 +153,7 @@ function saveArrayVal2(n_type, n_playing) {
     }
     debugShowLog(AnsFill);
     if (AnsFill == quesNum[n_type]) {
-        filePlaying = n_playing + 1;
+        filePlaying = n_playing + 1 - trialNum[0];
         if (filePlaying < arraySum(trialNum)) {
             loadSound2(0);
             loadSound2(1);
@@ -176,7 +177,7 @@ function saveFunc() {
 
 // Show/save slider position
 function showValue(n_audio) {
-    var fileAns = filePlaying + 1;
+    var fileAns = filePlaying + trialNum[0] + 1;
     if (fileAns < 10) {
         var nameSld = "slider00" + fileAns;
     } else if (fileAns < 100) {
@@ -189,6 +190,6 @@ function showValue(n_audio) {
     playNum[n_audio] = idSld.value;
     ChangeVolume(n_audio);
 
-    selectAns[filePlaying - trialNum[0]][n_audio + 1] = point[n_audio][filePlaying - trialNum[0]][playNum[n_audio]];
-    debugShowLog(selectAns[filePlaying - trialNum[0]]);
+    selectAns[filePlaying][n_audio + 1] = point[n_audio][filePlaying][playNum[n_audio]];
+    debugShowLog(selectAns[filePlaying]);
 }
